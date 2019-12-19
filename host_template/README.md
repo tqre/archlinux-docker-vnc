@@ -39,17 +39,23 @@ Procedure:
 ## Additional files:
 
 arch_ISO.json
-  - installation ISO configuration for API call
+- installation ISO configuration for API call
+
 bootfromHD.json
-  - API call body to change boot order
+- API call body to change boot order
+
 detachISO.json
-  - API call body to detach the Arch Linux installation ISO
+- API call body to detach the Arch Linux installation ISO
 
 ## partition_map:
 
 A here-document in arch_host_install for sfdisk partitioning:
+
 Default scheme:
+
 /dev/vda1 BIOS-boot 1M
+
 /dev/vda2 / 8G
+
 /dev/vda3 /home 17G
 
