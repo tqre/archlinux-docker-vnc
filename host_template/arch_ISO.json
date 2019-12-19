@@ -1,0 +1,41 @@
+{
+  "server": {
+    "zone": "de-fra1",
+    "title": "Arch Linux Host Template",
+    "hostname": "archlinuxhosttemplate",
+    "plan": "1xCPU-1GB",
+    "storage_devices": {
+      "storage_device": [
+        {
+          "action": "create",
+          "title": "ArchTestHD",
+          "size": 25,
+          "tier": "maxiops"
+        },
+        {
+          "action": "attach",
+          "storage": "01000000-0000-4000-8000-000070020101",
+          "type": "cdrom"
+        }
+      ]
+    },
+    "networking": {
+      "interfaces": {
+        "interface": [
+          {
+            "ip_addresses": { "ip_address": [{ "family": "IPv4" }] },
+            "type": "public"
+          },
+          {
+            "ip_addresses": { "ip_address": [{ "family": "IPv4" }] },
+            "type": "utility"
+          },
+          {
+            "ip_addresses": { "ip_address": [{ "family": "IPv6" }] },
+            "type": "public"
+          }
+        ]
+      }
+    }
+  }
+}

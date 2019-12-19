@@ -1,0 +1,5 @@
+{
+  "server" : {
+    "boot_order": "disk"
+  }
+}

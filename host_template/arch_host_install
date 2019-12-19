@@ -1,0 +1,95 @@
+#!/bin/bash
+
+# Script for Arch Linux installation ISO to prepare a cloud instance template.
+# Cloud provider specific: UpCloud
+# USE WITH CARE! Partitioning is automated, so take care where this script is run!
+
+# The procedure starts with a fresh Arch installation ISO, and downloading
+# and executing this script.
+
+# Variables:
+MIRROR="https://arch.unixpeople.org/\$repo/os/\$arch"
+TZ="Europe/Helsinki"
+LOC="en_US.UTF-8"
+KEYBOARD="us"
+HOSTNAME="archtest"
+USERNAME="user"
+SSH_PORT="22"
+SSH_PUB_KEY=""
+
+# Partition the disk:
+# type=global identifiers (BIOS boot, x86_64 root, linux home)
+# https://wiki.archlinux.org/index.php/Persistent_block_device_naming
+# Cleared from dump: label-id, partition uuid's
+
+cat > partition_map << EOF
+label: gpt
+device: /dev/vda
+unit: sectors
+first-lba: 2048
+last-lba: 52428766
+
+/dev/vda1 : start=        2048, size=        2048, type=21686148-6449-6E6F-744E-656564454649
+/dev/vda2 : start=        4096, size=    16777216, type=4F68BCE3-E8CD-4DB1-96E7-FBCAF984B709
+/dev/vda3 : start=    16781312, size=    35647455, type=933AC7E1-2EB4-4F13-B844-0E14E2AEF915
+EOF
+
+sfdisk /dev/vda < partition_map
+
+mkfs.vfat /dev/vda1
+mkfs.ext4 /dev/vda2
+mkfs.ext4 /dev/vda3
+
+timedatectl set-ntp true
+mount /dev/vda2 /mnt
+mkdir /mnt/home
+mount /dev/vda3 /mnt/home
+
+# Select the mirror, this will be duplicated in the resulting os.
+echo "Server = $MIRROR" > /etc/pacman.d/mirrorlist
+
+# Bootstrap Arch Linux
+pacstrap /mnt base linux linux-firmware grub openssh nano intel-ucode
+
+# Create file system table:
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Chroot: pipe here-document
+cat << EOF | arch-chroot /mnt
+ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+hwclock --systohc
+sed -i 's/#$LOC/$LOC/' /etc/locale.gen
+locale-gen
+echo "LANG=$LOC" > /etc/locale.conf
+echo "KEYMAP=$KEYBOARD" > /etc/vconsole.conf
+
+echo -e "[Match]\nName=en*\n\n[Network]\nDHCP=true" > /etc/systemd/network/dhcp.network
+systemctl enable systemd-networkd.service
+# TODO: name resolution fails
+echo -e "nameserver 94.237.127.9\nnameserver 94.237.40.9" > /etc/resolv.conf
+echo $HOSTNAME > /etc/hostname
+echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts
+
+useradd -m $USERNAME
+runuser $USERNAME -c 'mkdir ~/.ssh'
+runuser $USERNAME -c 'echo $SSH_PUB_KEY > ~/.ssh/authorized_keys'
+
+sed -i "s/#Port 22/Port $SSH_PORT/" /etc/ssh/sshd_config
+sed -i 's/Subsystem/#Subsystem/' /etc/ssh/sshd_config
+sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sed -i 's/#PermitRootLogin pro/c\PermitRootLogin no' /etc/ssh/sshd_config
+systemctl enable sshd
+
+grub-install --target=i386-pc /dev/vda
+sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
+sed -i '/LINUX_DEF/c\GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet random.trust_cpu=on"' /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+
+EOF
+
+shutdown -h now
+
+# API call to change boot order and start the server
+# SSH connection ready
+
+
