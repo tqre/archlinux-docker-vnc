@@ -9,8 +9,10 @@ on virtual terminals/interpreters.
 
 ## Work in progress!
 
-- password for $USERNAME needs to be set before using sudo
+- password for $USERNAME needs to be set before creating the user
+  - sudo needs this
 - /etc/machine-id has to be resetted when cloning
+- sed line /etc/bash.bashrc not working
 
 Procedure:
 
