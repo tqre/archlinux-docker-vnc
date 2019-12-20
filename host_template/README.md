@@ -23,7 +23,7 @@ Procedure:
 3. Set variables in arch_host_install:
   - preferred mirror
   - timezone, locale, keyboard
-  - hostname, username
+  - hostname, username, password
   - SSH port number and public key
 4. Run arch_host_install on the VM
   - This pretty much follows Arch Linux installation process
