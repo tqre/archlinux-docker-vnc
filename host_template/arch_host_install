@@ -14,6 +14,7 @@ LOC="en_US.UTF-8"
 KEYBOARD="us"
 HOSTNAME="archtest"
 USERNAME="user"
+PASSWORD="changemeasap"
 SSH_PORT="22"
 SSH_PUB_KEY=""
 
@@ -67,12 +68,11 @@ echo "$USERNAME ALL=(ALL) ALL" >> /etc/sudoers
 echo -e "[Match]\nName=en*\n\n[Network]\nDHCP=true" > /etc/systemd/network/dhcp.network
 systemctl enable systemd-networkd.service
 
-sed -i "/PS1/c\PS1=\'[\\\u@\\\h \\\w]\\\$ \'" /etc/bash.bashrc
-
 echo $HOSTNAME > /etc/hostname
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts
 
 useradd -m $USERNAME
+echo -e "$PASSWORD\n$PASSWORD" | passwd $USERNAME
 runuser $USERNAME -c 'mkdir ~/.ssh'
 runuser $USERNAME -c 'echo $SSH_PUB_KEY > ~/.ssh/authorized_keys'
 
