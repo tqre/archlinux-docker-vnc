@@ -65,8 +65,7 @@ echo "KEYMAP=$KEYBOARD" > /etc/vconsole.conf
 
 echo -e "[Match]\nName=en*\n\n[Network]\nDHCP=true" > /etc/systemd/network/dhcp.network
 systemctl enable systemd-networkd.service
-# TODO: name resolution fails
-echo -e "nameserver 94.237.127.9\nnameserver 94.237.40.9" > /etc/resolv.conf
+
 echo $HOSTNAME > /etc/hostname
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts
 
@@ -87,9 +86,10 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 EOF
 
+# Set resolv.conf here
+echo -e 'nameserver 94.237.127.9\nnameserver 94.237.40.9' > /mnt/etc/resolv.conf
+
+# Turn off the machine
 shutdown -h now
 
 # API call to change boot order and start the server
-# SSH connection ready
-
-

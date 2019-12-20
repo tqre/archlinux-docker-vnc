@@ -14,8 +14,8 @@ headers = {
 }
 
 # Server's uuid is needed to modify it
-# Server has to be shut down too
 uuid = ""
+
 # Change boot_options to boot from primary HD
 # Display adapter is Cirrus?
 body = open("bootfromHD.json", "r")
