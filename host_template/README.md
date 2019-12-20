@@ -9,8 +9,7 @@ on virtual terminals/interpreters.
 
 ## Work in progress!
 
-- root access is possible only via web console atm
-  - install & configure sudo
+- password for $USERNAME needs to be set before using sudo
 - /etc/machine-id has to be resetted when cloning
 
 Procedure:
