@@ -9,6 +9,8 @@ on virtual terminals/interpreters.
 
 ## Work in progress!
 
+- root access is possible only via web console atm
+
 Procedure:
 
 1. Run deploy_arch.py
