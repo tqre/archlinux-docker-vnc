@@ -10,6 +10,7 @@ on virtual terminals/interpreters.
 ## Work in progress!
 
 - root access is possible only via web console atm
+- /etc/machine-id has to be resetted when cloning
 
 Procedure:
 
