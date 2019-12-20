@@ -62,6 +62,7 @@ sed -i 's/#$LOC/$LOC/' /etc/locale.gen
 locale-gen
 echo "LANG=$LOC" > /etc/locale.conf
 echo "KEYMAP=$KEYBOARD" > /etc/vconsole.conf
+echo "$USERNAME ALL=(ALL) ALL" >> /etc/sudoers
 
 echo -e "[Match]\nName=en*\n\n[Network]\nDHCP=true" > /etc/systemd/network/dhcp.network
 systemctl enable systemd-networkd.service
