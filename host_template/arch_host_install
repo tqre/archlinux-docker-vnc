@@ -50,7 +50,7 @@ mount /dev/vda3 /mnt/home
 echo "Server = $MIRROR" > /etc/pacman.d/mirrorlist
 
 # Bootstrap Arch Linux
-pacstrap /mnt base linux linux-firmware grub openssh sudo nano intel-ucode
+pacstrap /mnt base linux linux-firmware grub openssh sudo nano intel-ucode docker
 
 # Create file system table:
 genfstab -U /mnt >> /mnt/etc/fstab
