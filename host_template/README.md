@@ -16,7 +16,7 @@ Procedure:
 1. Run deploy_arch.py
   - API call to set up an Arch Linux installation ISO
   - take note of the new server UUID 
-    - TODO: get this automatically
+    - TODO: VM UUID, storage UUID's generated -> store somewhere
 2. Start the web-console and set up ad-hoc SSH connection:
   - set passwd for root
   - systemctl start sshd
