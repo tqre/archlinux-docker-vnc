@@ -1,0 +1,54 @@
+{
+  "server": {
+    "zone": "de-fra1",
+    "title": "Testing",
+    "hostname": "archtemplatetest",
+    "plan": "1xCPU-1GB",
+    "storage_devices": {
+      "storage_device": [
+        {
+          "action": "clone",
+          "storage": "",
+          "title": "Teststorage",
+          "tier": "maxiops"
+        }
+      ]
+    },
+    "networking": {
+      "interfaces": {
+        "interface": [
+          {
+            "ip_addresses": {
+              "ip_address": [
+                {
+                  "family": "IPv4"
+                }
+              ]
+            },
+            "type": "public"
+          },
+          {
+            "ip_addresses": {
+              "ip_address": [
+                {
+                  "family": "IPv4"
+                }
+              ]
+            },
+            "type": "utility"
+          },
+          {
+            "ip_addresses": {
+              "ip_address": [
+                {
+                  "family": "IPv6"
+                }
+              ]
+            },
+            "type": "public"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -44,15 +44,19 @@ body = open("template_config.json", "r")
 conn.request("POST", "/1.3/storage/" + storageuuid + "/templatize", body, headers)
 body.close()
 
+# Wait for the template to be created
+print("Templatizing...")
+time.sleep(10)
+
 # This returns the template uuid
 response = json.loads(conn.getresponse().read().decode(encoding="UTF-8"))
 templateuuid = response["storage"]["uuid"]
 
-# Editing template_config.json to reflect the new template uuid
-with open("template_config.json", "r") as file:
+# Editing clones.json to reflect the new template uuid
+with open("clones.json", "r") as file:
 	data = json.load(file)
 
-with open("template_config.json", "w") as file:
+with open("clones.json", "w") as file:
 	data["server"]["storage_devices"]["storage_device"][0]["storage"] = templateuuid
 	json.dump(data, file, indent=2)
 
@@ -62,6 +66,7 @@ print(conn.getresponse().read().decode(encoding="UTF-8"))
 
 # Then start making servers out of the template
 # Have to wait a bit until the template becomes available
+print("Creating a clone from the template")
 time.sleep(20)
 
 body = open("template_config.json", "r")
