@@ -10,7 +10,8 @@
           "action": "clone",
           "storage": "",
           "title": "Teststorage",
-          "tier": "maxiops"
+          "tier": "maxiops",
+          "address": "virtio"
         }
       ]
     },
