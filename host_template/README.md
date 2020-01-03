@@ -10,6 +10,7 @@ on IDE virtual environments.
 ## Work in progress!
 
 - /etc/machine-id gets duplicated
+- pacman keyring in /etc/pacman.d gets duplicated
 
 Procedure:
 
