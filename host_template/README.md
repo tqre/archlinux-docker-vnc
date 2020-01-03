@@ -10,8 +10,6 @@ on IDE virtual environments.
 ## Work in progress!
 
 - /etc/machine-id gets duplicated
-- 
-
 
 Procedure:
 
@@ -64,9 +62,9 @@ clones.json
 A here-document in arch_host_install for sfdisk partitioning:
 
 Default scheme:
-'''
+```
 /dev/vda1 BIOS-boot 1M  
 /dev/vda2 / 8G  
 /dev/vda3 /home 17G  
-'''
+```
 
