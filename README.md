@@ -29,6 +29,7 @@ needed to provide a remote desktop environment.
 Some further ideas/todos:  
 Have a 3 tier system: dev,test,prod  
 Configuration management: one salt-master to rule them all  
+local package repository for pacman to reduce network consumption  
 salt-cloud: Arch+Upcloud both missing, major work  
 networking  
 persistent storage  
