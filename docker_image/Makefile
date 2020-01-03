@@ -1,6 +1,5 @@
-DOCKER_USER:=pierres
 DOCKER_ORGANIZATION=archlinux
-DOCKER_IMAGE:=base
+DOCKER_IMAGE:=test
 
 rootfs:
 	$(eval TMPDIR := $(shell mktemp -d))
@@ -31,8 +30,4 @@ ci-test:
 		-v $(PWD):/app -w /app $(DOCKER_ORGANIZATION)/$(DOCKER_IMAGE) \
 		sh -c 'pacman -Syu --noconfirm make devtools docker && make docker-image-test'
 
-docker-push:
-	docker login -u $(DOCKER_USER)
-	docker push $(DOCKER_ORGANIZATION)/$(DOCKER_IMAGE)
-
-.PHONY: rootfs docker-image docker-image-test ci-test docker-push
+.PHONY: rootfs docker-image docker-image-test ci-test
