@@ -69,7 +69,7 @@ print(conn.getresponse().read().decode(encoding="UTF-8"))
 print("Creating a clone from the template")
 time.sleep(20)
 
-body = open("template_config.json", "r")
+body = open("clones.json", "r")
 conn.request("POST", "/1.3/server", body, headers)
 print(conn.getresponse().read().decode(encoding="UTF-8"))
 body.close()
