@@ -39,8 +39,8 @@ Procedure:
   - API call to change boot disk from cdrom to HD
   - API call to detach installation ISO
   - API call to make a custom template from the created server
-  - API call to delete the initial machine
   - API call to make one clone from the template
+  - API call to delete the original templatized VM
 
 ## Additional files:
 
