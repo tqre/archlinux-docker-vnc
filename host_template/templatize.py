@@ -11,7 +11,7 @@ from base64 import b64encode
 from getpass import getpass
 
 # Server's uuid is needed to modify it, server has to be shut down
-uuid = ""
+uuid = input("Server UUID:")
 
 user = input("Username:")
 pswd = getpass("Password:")
