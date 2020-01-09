@@ -4,7 +4,7 @@
 - got the basic tigervnc setup working on a full archlinux container and a shared desktop
 - is it possible to containerize only x-server and just the programs needed (tigervnc)?  
 - look into pacstrap/pacman solutions in creating a tarball for containerization
-- cat ball.tar | docker import - <name>
+- cat ball.tar | docker import - nameoftheimage
 - earlier solutions use host's xorg-server
 - audio issues
 
